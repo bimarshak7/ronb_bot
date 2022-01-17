@@ -40,8 +40,8 @@ def main():
     params = get_params()
     res = connect_to_endpoint(url, params)
     #print(json.dumps(res, indent=4, sort_keys=True))
-    tweets=[a['text'].strip() for a in res['data']]
-    return res['meta']['newest_id'],tweets
+    #tweets=[a['text'].strip() for a in res['data']]
+    return res['meta']['newest_id'],res['data']
 
 
 if __name__ == "__main__":

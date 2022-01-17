@@ -13,12 +13,14 @@ def get_url(msg,chat):
     url2 = f'https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat}&text={msg}&parse_mode=html'.replace("&amp;",'')
     return url2
 
-def send_up(updates,chats):
+def send_up(last,updates,chats):
     for msg in updates:
         for chat in chats:
             # url = get_url(msg,chat)
             # print(url)
-            res = requests.request("GET",get_url(msg,chat))
+            if msg['id']==last:return True
+            res = requests.request("GET",get_url(msg['text'],chat))
+    return True
 
 def main():
     chats=set()
@@ -37,8 +39,8 @@ def main():
         # print(updates)
         if latest!=last:
             print(latest,last)
+            send_up(last,updates,chats)
             last=latest
-            send_up(updates,chats)
             time.sleep(5)
         c = 0 if c==100 else c+1
         time.sleep(20)
