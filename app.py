@@ -28,10 +28,9 @@ def main():
         if c==0:
             res = requests.request("GET",url1).json()
             for ch in res['result']:
-                print("Adding chat ids")
                 try:chats.add(ch['message']['chat']['id'])
                 except:continue
-        print(chats)
+        # print(chats)
         print("Chat List Fetched")
         latest,updates=tweet.main()
         print('Tweets Fetched')
