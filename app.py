@@ -19,10 +19,7 @@ def send_up(last,updates,chats):
             url = get_url(msg['text'],chat)
             print("next")
             if msg['id']==last:return True
-            
-            if chat==1195152040:
-                print(url)
-                res = requests.request("GET",get_url(msg['text'],chat))
+            res = requests.request("GET",get_url(msg['text'],chat))
     return True
 
 def main():
