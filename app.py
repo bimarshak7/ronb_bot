@@ -24,14 +24,17 @@ def send_up(last,updates,chats):
 
 def main():
     chats=set()
-    last=1
+    last=1483318011402461190
     c=0
     while True:
         if c==0:
             res = requests.request("GET",url1).json()
             for ch in res['result']:
-                try:chats.add(ch['message']['chat']['id'])
+                try:
+                    if 'message' in ch.keys():chats.add(ch['message']['chat']['id'])
+                    if 'channel_post' in ch.keys():chats.add(ch['channel_post']['chat']['id'])
                 except:continue
+
         # print(chats)
         print("Chat List Fetched")
         latest,updates=tweet.main()
