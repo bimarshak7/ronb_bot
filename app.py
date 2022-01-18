@@ -10,16 +10,19 @@ url1 = "https://api.telegram.org/bot{}/getUpdates".format(bot_token)
 def get_url(msg,chat):
     if(len(msg)>1):msg = "<b>RONB Update</b> \n\n"+msg
     # print(112,msg)
-    url2 = f'https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat}&text={msg}&parse_mode=html'.replace("&amp;",'')
+    url2 = f'https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={chat}&text={msg}&parse_mode=html'.replace("&amp;",'%26').replace("#","%23").replace("https://t.co","\nhttps://t.co")
     return url2
 
 def send_up(last,updates,chats):
     for msg in updates:
         for chat in chats:
-            # url = get_url(msg,chat)
-            # print(url)
+            url = get_url(msg['text'],chat)
+            print("next")
             if msg['id']==last:return True
-            res = requests.request("GET",get_url(msg['text'],chat))
+            
+            if chat==1195152040:
+                print(url)
+                res = requests.request("GET",get_url(msg['text'],chat))
     return True
 
 def main():
